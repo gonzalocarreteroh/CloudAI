@@ -1,23 +1,12 @@
 import express from 'express';
 import multer from 'multer';
-import path from 'path';
+import cors from 'cors';
 
 const app = express();
 
-// Define the storage engine
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    // Save files to 'uploads/' folder
-    cb(null, 'uploads/');
-  },
-  filename: function (req, file, cb) {
-    // Use the original file name or add a timestamp to avoid conflicts
-    cb(null, Date.now() + path.extname(file.originalname));
-  }
-});
+app.use(cors());
 
-// Set up multer with the storage configuration
-const upload = multer({ storage: storage });
+const upload = multer();
 
 app.post('/upload', upload.single('file'), (req, res) => {
   const file = req.file;
@@ -27,10 +16,10 @@ app.post('/upload', upload.single('file'), (req, res) => {
   }
 
   // File is saved in the 'uploads/' directory
-  console.log('File saved:', file);
+  console.log('File received:', file);
 
   // You can process the file here or send it to Hadoop
-  res.send({ message: 'File uploaded successfully', file });
+  res.send({ message: 'File received successfully', file });
 });
 
 app.listen(3000, () => {
