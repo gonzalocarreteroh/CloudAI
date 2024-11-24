@@ -3,15 +3,19 @@ import axios from 'axios';
 
 const FileUpload: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-  // Indicate the file selected by the user
+  const [prediction, setPrediction] = useState<string | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFile(event.target.files?.[0] || null);
-    // If a file was selected, setSelected to the file name
-    if (event.target.files?.[0]) {
-      setSelected(`Selected: ${event.target.files[0].name}`);
+    const uploadedFile = event.target.files?.[0] || null;
+    setFile(uploadedFile);
+
+    if (uploadedFile) {
+      setSelected(`Selected: ${uploadedFile.name}`);
+      // Generate a preview URL for the selected image
+      setPreview(URL.createObjectURL(uploadedFile));
     }
   };
 
@@ -20,27 +24,26 @@ const FileUpload: React.FC = () => {
 
     const formData = new FormData();
     formData.append('file', file);
-    // setSuccess('File uploaded successfully');
 
     try {
-      setSuccess('File uploaded successfully');
       const response = await axios.post('http://localhost:3000/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
-      console.log('File uploaded successfully:', response.data);
+      setSuccess('File uploaded successfully');
+      setPrediction(response.data.prediction); // Get the prediction result
     } catch (error) {
       console.error('Error uploading file:', error);
     }
   };
 
-  // Display in UI success message
   return (
     <div className="upload-container">
       <div className="upload-header">
-        <input 
-          type="file" 
-          onChange={handleFileChange} 
-          className="file-input" 
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          className="file-input"
           id="file-input"
         />
       </div>
@@ -48,8 +51,14 @@ const FileUpload: React.FC = () => {
         Choose a File
       </label>
       {selected && <p className="selected-msg">{selected}</p>}
+      {preview && (
+        <div className="image-preview">
+          <img src={preview} alt="Preview" className="preview-img" />
+        </div>
+      )}
       <button onClick={handleUpload} className="upload-btn">Upload File</button>
       {success && <p className="success-msg">{success}</p>}
+      {prediction && <p className="prediction-msg">Prediction: {prediction}</p>}
     </div>
   );
 };
