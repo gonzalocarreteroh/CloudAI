@@ -56,7 +56,7 @@ const FileUpload: React.FC = () => {
           <img src={preview} alt="Preview" className="preview-img" />
         </div>
       )}
-      <button onClick={handleUpload} className="upload-btn">Upload File</button>
+      <button onClick={handleUpload} className="upload-btn">Classify</button>
       {success && <p className="success-msg">{success}</p>}
       {prediction && <p className="prediction-msg">Prediction: {prediction}</p>}
     </div>
