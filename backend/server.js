@@ -31,15 +31,9 @@ const s3 = new AWS.S3({
   sessionToken: process.env.AWS_ACCESS_TOKEN, // Only needed for temporary credentials
   region: 'us-east-1'
 });
-// const AWS = require('aws-sdk');
-/*
-const s3 = new AWS.S3({
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    region: 'us-east-1'
-});
-*/
 
+/*
+// To send text to S3
 ( async () => {
   await s3.
   putObject({
@@ -49,8 +43,9 @@ const s3 = new AWS.S3({
   }).promise();
 }
 )();
+*/
 
-/*
+
 app.post('/upload', upload.single('file'), async (req, res) => {
   try {
     const file = req.file;
@@ -68,28 +63,25 @@ app.post('/upload', upload.single('file'), async (req, res) => {
       return res.status(400).send({ message: 'File size exceeds limit' });
     }
 
+    // Configure S3 upload parameters
     const params = {
       Bucket: process.env.AWS_BUCKET_NAME,
-      Key: file.originalname,
-      Body: file.buffer,
-      ACL: 'public-read'
+      Key: file.originalname, // Original file name
+      Body: file.buffer, // File content
+      ContentType: file.mimetype, // File MIME type
     };
 
-    s3.upload(params, (err, data) => {
-      if (err) {
-        console.error('Error uploading file:', err);
-        res.status(500).send({ message: 'Error uploading file' });
-      } else {
-        console.log('File uploaded:', data.Location);
-        res.send({ fileUrl: data.Location });
-      }
-    });
+    // Upload to S3
+    await s3.putObject(params).promise();
+
+    res.status(200).send({ message: 'File uploaded successfully', fileName: file.originalname });
+
   } catch (error) {
     console.error('Unexpected error:', error);
     res.status(500).send({ message: 'Internal Server Error' });
   }
 });
-*/
+
 
 app.listen(3000, () => {
   console.log('Server is running on http://localhost:3000');
