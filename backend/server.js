@@ -32,19 +32,7 @@ const s3 = new AWS.S3({
   region: 'us-east-1'
 });
 
-/*
-// To send text to S3
-( async () => {
-  await s3.
-  putObject({
-    Bucket: "comp4651images",
-    Key: 'test.txt',
-    Body: 'Hello, World!'
-  }).promise();
-}
-)();
-*/
-
+let predictions = {};
 
 app.post('/upload', upload.single('file'), async (req, res) => {
   try {
@@ -74,6 +62,8 @@ app.post('/upload', upload.single('file'), async (req, res) => {
     // Upload to S3
     await s3.putObject(params).promise();
 
+    predictions[file.originalname] = { status: 'processing' };
+
     res.status(200).send({ message: 'File uploaded successfully', fileName: file.originalname });
 
   } catch (error) {
@@ -83,7 +73,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 });
 
 app.post('/display-classification', express.json(), (req, res) => {
-  const { class: classification, confidence } = req.body;
+  const { key: key, class: classification, confidence } = req.body;
 
   if (!classification || !confidence) {
     return res.status(400).send({ message: 'Invalid data received' });
@@ -91,7 +81,29 @@ app.post('/display-classification', express.json(), (req, res) => {
 
   console.log(`Received classification: ${classification}, confidence: ${confidence}`);
 
+  predictions[key] = {
+    status: 'complete',
+    result: { classification, confidence },
+  };
+
   res.status(200).send({ message: 'Classification result received', classification, confidence });
+});
+
+app.get('/get-prediction/:uploadId', (req, res) => {
+  const { uploadId } = req.params;
+
+  if (predictions[uploadId]) {
+    if (predictions[uploadId].status === 'complete') {
+      return res.status(200).send({
+        prediction: predictions[uploadId].result.classification, // Return prediction result
+        confidence: predictions[uploadId].result.confidence,
+      });
+    } else {
+      return res.status(200).send({ prediction: null }); // Prediction is still being processed
+    }
+  }
+
+  res.status(404).send({ message: 'Prediction not found' });
 });
 
 

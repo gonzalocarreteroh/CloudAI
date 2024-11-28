@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const FileUpload: React.FC = () => {
@@ -6,7 +6,9 @@ const FileUpload: React.FC = () => {
   const [preview, setPreview] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [prediction, setPrediction] = useState<string | null>(null);
+  const [confidence, setConfidence] = useState<string | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
+  const [uploadId, setUploadId] = useState<string | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const uploadedFile = event.target.files?.[0] || null;
@@ -14,7 +16,6 @@ const FileUpload: React.FC = () => {
 
     if (uploadedFile) {
       setSelected(`Selected: ${uploadedFile.name}`);
-      // Generate a preview URL for the selected image
       setPreview(URL.createObjectURL(uploadedFile));
     }
   };
@@ -30,11 +31,33 @@ const FileUpload: React.FC = () => {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       setSuccess('File uploaded successfully');
-      setPrediction(response.data.prediction); // Get the prediction result
+      setUploadId(response.data.fileName); // Store the upload ID (or file name)
     } catch (error) {
       console.error('Error uploading file:', error);
     }
   };
+
+  // Polling for the prediction result
+  useEffect(() => {
+    if (!uploadId) return;
+
+    const intervalId = setInterval(async () => {
+      try {
+        const result = await axios.get(`http://localhost:3000/get-prediction/${uploadId}`);
+        console.log("Result:", result.data);
+        if (result.data.prediction) {
+          console.log("Prediction:", result.data.prediction);
+          setPrediction(result.data.prediction);
+          setConfidence(result.data.confidence);
+          clearInterval(intervalId); // Stop polling when we get the prediction
+        }
+      } catch (error) {
+        console.error('Error fetching prediction:', error);
+      }
+    }, 2000); // Poll every 2 seconds
+
+    return () => clearInterval(intervalId); // Clean up the interval on component unmount
+  }, [uploadId]);
 
   return (
     <div className="upload-container">
@@ -59,6 +82,7 @@ const FileUpload: React.FC = () => {
       <button onClick={handleUpload} className="upload-btn">Classify</button>
       {success && <p className="success-msg">{success}</p>}
       {prediction && <p className="prediction-msg">Prediction: {prediction}</p>}
+      {confidence && <p className="confidence-msg">Confidence: {confidence}</p>}
     </div>
   );
 };
