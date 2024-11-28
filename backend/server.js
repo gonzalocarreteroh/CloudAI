@@ -82,6 +82,18 @@ app.post('/upload', upload.single('file'), async (req, res) => {
   }
 });
 
+app.post('/display-classification', express.json(), (req, res) => {
+  const { class: classification, confidence } = req.body;
+
+  if (!classification || !confidence) {
+    return res.status(400).send({ message: 'Invalid data received' });
+  }
+
+  console.log(`Received classification: ${classification}, confidence: ${confidence}`);
+
+  res.status(200).send({ message: 'Classification result received', classification, confidence });
+});
+
 
 app.listen(3000, () => {
   console.log('Server is running on http://localhost:3000');
