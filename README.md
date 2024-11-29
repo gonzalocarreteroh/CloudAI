@@ -14,7 +14,7 @@ We developed a web application and an AI model to allow users to classify images
 
 This is a diagram of the architecture. Note that we run the UI and backend of the webapp in their own EC2 instances, and the processing of classifications and true lables is currently no connected to the system, but it is implemented with correct functionallity:
 
-[image](resources/current_architecture)
+[image](resources/current_architecture.jpg)
 
 A video of how the system works is provided in the root of this directory: [video](resources/COMP4651GroupProject.mp4)
 
