@@ -8,5 +8,7 @@ Yeung Kong Sunny Lam (20857162) ykslam@connect.ust.hk
 
 Gunwoo Park (20635825) gparkab@connect.ust.hk
 
+We developed a web application and an AI model to allow users to classify images of digits, integrated into multiple AWS cloud services to provide computing and storage scalability. In particular, we made use of several EC2 instances to run the webapp and AI model, an S3 bucket to store the images and an AWS Lambda function to connect everything together.
 
-There are two main components. The webapp in [webapp](/webapp) and the AI image classification model in 
+
+The webapp can be found in [webapp](/webapp) and the Convolutional Neural Network used for image classification in  
