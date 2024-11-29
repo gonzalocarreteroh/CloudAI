@@ -1,4 +1,6 @@
 # COMP 4651 Group 9
+## Cloud-based Image Classification System with AWS Services
+
 
 Gonzalo Carretero (21158252) gch@connect.ust.hk 
 
