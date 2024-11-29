@@ -1,50 +1,52 @@
-# React + TypeScript + Vite
+Start an EC2 instance in AWS. We used an EC2 Ubuntu t3.large instance with 30GB of disk storage. Modify the security group inbound rules to allow TCP traffic from any IP.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Connect to the instance through SSH. Install the necessary requirements for the project.
 
-Currently, two official plugins are available:
+Mainly:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+sudo apt update
 
-## Expanding the ESLint configuration
+sudo apt-get install nodejs
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+sudo apt install npm
 
-- Configure the top-level `parserOptions` property like this:
+// After running the command bellow, giva a name for the project and choose React and Typescript as the development tools
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+npm create vite@latest
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+npm install axios
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+npm install express
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+npm install multer
+
+npm install cors
+
+npm install dotenv
+
+npm install aws-sdk
+
+After installing all the necessary requirements, remove all the files inside the src/ directory that has been created inside your Vite project and replace them with the ones that you clones in this directory (you may use scp command in your local machine to achieve this).
+
+
+#
+Frontend:
+
+To start the frontend, run the following command:
+
+npm run dev
+
+An http link will be displayed that can be opened in a web browser. However, to see the UI in you local machine, you need to replace the IP inside the http link with the public IP address of the EC2 instance in which the Vite project is running on.
+
+
+#
+Backend:
+
+Open a new terminal in your local computer and connect to the same EC2 instance with SSH. cd into the backend/ dir and run the command:
+
+node server.js
+
+#
+
+Now you can use the UI to send images from your local device to the backend!!
+
