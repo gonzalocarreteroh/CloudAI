@@ -29,4 +29,4 @@ We aim to integrate in the future the map reduce processing of a large quantity 
 
 The new architecure would look as follows:
 
-[image](./future_work_architecture)
+[image](resources/future_work_architecture.svg)
