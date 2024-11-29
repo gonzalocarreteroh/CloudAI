@@ -12,7 +12,7 @@ Gunwoo Park (20635825) gparkab@connect.ust.hk
 
 We developed a web application and an AI model to allow users to classify images of digits, integrated into multiple AWS cloud services to provide computing and storage scalability. In particular, we made use of several EC2 instances to run the webapp and AI model, an S3 bucket to store the images and an AWS Lambda function to connect everything together.
 
-A video of how the system works is provided in the root of this directory: [video](./COMP4651GroupProject.mp4)
+A video of how the system works is provided in the root of this directory: [video](resources/COMP4651GroupProject.mp4)
 
 Additionally, you may view the video here without needing to download it: [link](https://drive.google.com/file/d/1mG-5ArxXxegJ4jyc-2LxEFV8596YTRCR/view?usp=sharing)
 
