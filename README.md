@@ -20,3 +20,13 @@ Additionally, you may view the video here without needing to download it: [link]
 The webapp can be found in [webapp](/webapp) and the Convolutional Neural Network used for image classification in [AIModel](/AIModel). 
 
 To replicate the project, please clone this repository into your local device and follow the instructions in the README.md files inside each of the above folders for further setup details.
+
+
+
+Future versions:
+
+We aim to integrate in the future the map reduce processing of a large quantity of prediction labels and true lables to determine different metrics from our model like the accuracy. 
+
+The new architecure would look as follows:
+
+[image](./future_work_architecture)
