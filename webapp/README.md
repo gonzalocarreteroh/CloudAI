@@ -26,8 +26,16 @@ npm install dotenv
 
 npm install aws-sdk
 
-After installing all the necessary requirements, remove all the files inside the src/ directory that has been created inside your Vite project and replace them with the ones that you clones in this directory (you may use scp command in your local machine to achieve this).
+After installing all the necessary requirements, remove all the files inside the src/ directory that has been created inside your Vite project and replace them with the ones that you cloned in this directory (you may use scp command in your local machine to achieve this).
 
+Additionally, in the webapp dir, add a .env file. You need to specify the following credentials of your AWS account to be able to send images to S3:
+
+AWS_ACCESS_KEY_ID=...
+AWS_SECRET_ACCESS_KEY=...
+AWS_ACCESS_TOKEN=...
+AWS_BUCKET_NAME=...
+
+AWS_ACCESS_TOKEN is needed only for temporary credentials (like AWS Lab environment), and in AWS_BUCKET_NAME you need to specify the name of your S3 bucket. Additionally, be careful to indicate your own region in the server.js code (we used us-east-1).
 
 #
 Frontend:
