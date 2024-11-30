@@ -11,6 +11,7 @@ Yeung Kong Sunny Lam (20857162) ykslam@connect.ust.hk
 Gunwoo Park (20635825) gparkab@connect.ust.hk
 
 We developed a web application and an AI model to allow users to classify images of digits, integrated into multiple AWS cloud services to provide computing and storage scalability. In particular, we made use of several EC2 instances to run the webapp and AI model, an S3 bucket to store the images and an AWS Lambda function to connect everything together.
+Additionally, we added a map reduce component to the project, which processes pairs of classification predicted and true labels to determine the accuracy of our model.
 
 This is a diagram of the architecture. Note that we run the UI and backend of the webapp in their own EC2 instances, and the processing of classifications and true lables is currently no connected to the system, but it is implemented with correct functionallity:
 
@@ -29,10 +30,10 @@ To replicate the project, please clone this repository into your local device an
 
 Future versions:
 
-We aim to integrate in the future the map reduce processing of a large quantity of prediction labels and true lables with the rest of the app, to determine different metrics from our model like the accuracy. 
+A possible ampliation of the project would be for the own users to give the true labels of the pictures they upload and the AWS Lambda will store it together with the image prediction in an S3 bucket for the map reduce to process. In the current version, the true label is already set.
 
 The new architecure would look as follows, where the user would also give the true label of the image:
 
 ![image](resources/future_work_architecture.svg)
 
-We could then give feedback to the user on how "understandable" their handwritten digits are to an AI model.
+We could then give feedback to the user on for instance how "understandable" their handwritten digits are to an AI model.
