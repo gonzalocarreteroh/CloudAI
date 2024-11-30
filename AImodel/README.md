@@ -1,6 +1,6 @@
 1. Demonstration model for User interaction:
 
-mnist_cnn.pth contains a Convolutional Neural Network we trained on the mnist dataset to classify images of digits. The trained 
+mnist_cnn.pth contains a Convolutional Neural Network we trained on the mnist dataset to classify images of digits. 
 
 To run the model part of the project:
 
