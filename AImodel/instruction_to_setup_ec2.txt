@@ -6,7 +6,8 @@ WARNING:
 
 If you want to execute classification_with_s3, please prepare your OWN S3 bucket to test it. 
 And the requirement for using it is exactly the same as list below, but it is required that the 
-"requirements_s3.txt" is also required to install under pip besides "requirements.txt"
+"requirements_s3.txt" is also required to install under pip besides "requirements.txt". Besides, it is also 
+required to install different packages. Instead of installing requirements.txt you should install from requirements_sport.txt
 
 
 
