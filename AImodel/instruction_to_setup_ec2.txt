@@ -4,6 +4,11 @@ WARNING:
 3. change some part of command to fit to your EC2 machine, like public address
 4. send_request is the code to ask request to the classification.py which execute in ec2, use test_image.jpg as example
 
+If you want to execute classification_with_s3, please prepare your OWN S3 bucket to test it. 
+And the requirement for using it is exactly the same as list below, but it is required that the 
+"requirements_s3.txt" is also required to install under pip besides "requirements.txt"
+
+
 
 
 sudo apt-get update
