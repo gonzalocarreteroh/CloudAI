@@ -28,12 +28,14 @@ To replicate the project, please clone this repository into your local device an
 
 
 
-Future versions:
+Future versions (Implemented but not integrated for simplification):
 
-A possible ampliation of the project would be for the own users to give the true labels of the pictures they upload and the AWS Lambda will store it together with the image prediction in an S3 bucket for the map reduce to process. In the current version, the true label is already set.
+A possible appliation of the project would be for the own users to give the true labels of the pictures they upload and the AWS Lambda will store it together with the image prediction in an S3 bucket for the map reduce to process. In the current version, the true label is already set.
 
 The new architecure would look as follows, where the user would also give the true label of the image:
 
 ![image](resources/future_work_architecture.svg)
 
 We could then give feedback to the user on for instance how "understandable" their handwritten digits are to an AI model.
+
+For the future version, Please check directory of AIModel and accuracy-checker for detail.

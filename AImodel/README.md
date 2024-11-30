@@ -18,13 +18,13 @@ Note: the send_request.py isn't used to run the project and it was just used for
 
 2. The actual model which is connected to S3:
 
-IMPORTANT Note: our project also has participated in data analytics competition based on the Sport Classification Model that we trained in "COMP4651ProjectModel.ipynb". The model should be the main model of our project instead of the "DigitRecoginiton.ipynb". To make things simple, we use "DigitRecoginiton.ipynb" for the demonstration of the process from user sending request to the part that EC2 respond with predicted result.
+IMPORTANT Note: our project also has participated in data analytics based on the Sport Classification Model. Detail is in "COMP4651ProjectModel.ipynb". The model should be the main model of our project instead of the "DigitRecoginiton.ipynb". To make things simple, we use "DigitRecoginiton.ipynb" for the demonstration of the process from user sending request to the part that EC2 respond with predicted result.
 
 Besides, sport_classification.weights.h5 is the weight information of a DenseNet architecture we trained on the sports dataset reference: https://www.kaggle.com/datasets/gpiosenka/sports-classification. The corresponding py file is classification_with_s3.py and send_request_with_s3.py.
 for "classification_with_s3.py": It contains the the sport classification model which can put in the EC2 instance.
 
-For "send_request_with_s3.py", the difference between it and classification.py is that it will also return the label value corresponding to the user actual class name.
+For "classification_with_s3.py", the difference between it and classification.py is that it will also return the label value corresponding to the user actual class name.
 
 For "send_request_with_s3.py", the difference between it and "send_request.py" is that it also perform write operation to the S3 bucket, so that when we need to collect data to evaluate the result using Hadoop, we can directly retrieve it from the S3 and process the data in distribution manner in Hadoop (detail for the Hadoop implementation, you can check the directory "accuracy-checker). 
 
-To simply the complexity, we decide not use the implementation of send_request_with_s3.py and send_request_with_s3.py for lambda function for make things more understandable, but just show the code here. Although such part is not integrated, the operation for getting classification result and send to S3 are all tested and workable.
+To simply the complexity, we decide not use the implementation of classification_with_s3.py and send_request_with_s3.py for lambda function for make things more understandable, but just show the code here. Although such part is not integrated, the operation for getting classification result and send to S3 are all tested and workable.
