@@ -21,7 +21,7 @@ This is a diagram of the architecture. Note that we run the UI and backend of th
 
 A video of how the system works is provided in the root of this directory: [video](resources/COMP4651GroupProject.mp4)
 
-Additionally, you may view the video here without needing to download it: [link](https://drive.google.com/file/d/1mG-5ArxXxegJ4jyc-2LxEFV8596YTRCR/view?usp=sharing)
+Additionally, you may view the video here without needing to download it: [link](https://drive.google.com/file/d/1hVM7mfUyEjMTbqusoNv7yzzKYeRf2y_C/view?usp=sharing)
 
 
 The webapp can be found in [webapp](/webapp) and the Convolutional Neural Network used for image classification in [AIModel](/AIModel). 
